@@ -1,6 +1,5 @@
 #include "LedDriver.h"
 #include "RuntimeError.h"
-#include <stdbool.h>
 
 static uint16_t convertLedNumberToBit(int ledNumber);
 static void updateHardware(void);
@@ -44,6 +43,11 @@ void LedDriver_TurnAllOn()
 {
     ledsImage = ALL_LEDS_ON;
     updateHardware();
+}
+
+bool LedDriver_IsOn(int ledNumber)
+{
+    return 0 != (ledsImage & convertLedNumberToBit(ledNumber));
 }
 
 static uint16_t convertLedNumberToBit(int ledNumber)
