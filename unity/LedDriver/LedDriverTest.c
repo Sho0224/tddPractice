@@ -110,6 +110,13 @@ TEST(LedDriver, OutOfBoundsLedsAreAlwaysOff)
     TEST_ASSERT_FALSE(LedDriver_IsOn(17));
 }
 
+TEST(LedDriver, IsOff)
+{
+    TEST_ASSERT_TRUE(LedDriver_IsOff(12));
+    LedDriver_TurnOn(12);
+    TEST_ASSERT_FALSE(LedDriver_IsOff(12));
+}
+
 IGNORE_TEST(LedDriver, OutOfBoundsToDo)
 {
     /* TODO :実行時に何をすべきだろうか? */

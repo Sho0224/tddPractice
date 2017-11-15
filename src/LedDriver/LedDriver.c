@@ -54,6 +54,11 @@ bool LedDriver_IsOn(int ledNumber)
     return 0 != (ledsImage & convertLedNumberToBit(ledNumber));
 }
 
+bool LedDriver_IsOff(int ledNumber)
+{
+    return !LedDriver_IsOn(ledNumber);
+}
+
 static uint16_t convertLedNumberToBit(int ledNumber)
 {
     return 1 << (ledNumber - 1);
