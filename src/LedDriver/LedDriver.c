@@ -7,6 +7,7 @@ static void updateHardware(void);
 static bool IsLedOutOfBounds(int ledNumber);
 
 enum {ALL_LEDS_ON = ~0, ALL_LEDS_OFF = ~ALL_LEDS_ON};
+enum {FIRST_LED = 1, LAST_LED = 16};
 
 static uint16_t* ledsAddress;
 static uint16_t ledsImage;
@@ -52,7 +53,6 @@ static void updateHardware(void)
 {
     *ledsAddress = ledsImage;
 }
-enum {FIRST_LED = 1, LAST_LED = 16};
 
 static bool IsLedOutOfBounds(int ledNumber)
 {
