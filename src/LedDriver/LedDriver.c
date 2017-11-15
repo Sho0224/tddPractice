@@ -6,6 +6,7 @@ static uint16_t convertLedNumberToBit(int ledNumber);
 static void updateHardware(void);
 static bool IsLedOutOfBounds(int ledNumber);
 static void setLedImageBit(int ledNumber);
+static void clearLedImageBit(int ledNumber);
 
 enum {ALL_LEDS_ON = ~0, ALL_LEDS_OFF = ~ALL_LEDS_ON};
 enum {FIRST_LED = 1, LAST_LED = 16};
@@ -35,7 +36,7 @@ void LedDriver_TurnOff(int ledNumber)
 {
     if (IsLedOutOfBounds(ledNumber))
         return;
-    ledsImage &= ~(convertLedNumberToBit(ledNumber));
+    clearLedImageBit(ledNumber);
     updateHardware();
 }
 
@@ -63,6 +64,11 @@ static bool IsLedOutOfBounds(int ledNumber)
 static void setLedImageBit(int ledNumber)
 {
     ledsImage |= convertLedNumberToBit(ledNumber);
+}
+
+static void clearLedImageBit(int ledNumber)
+{
+    ledsImage &= ~(convertLedNumberToBit(ledNumber));
 }
 
 void LedDriver_Destroy(void)
