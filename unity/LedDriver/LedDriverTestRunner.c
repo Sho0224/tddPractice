@@ -9,4 +9,5 @@ TEST_GROUP_RUNNER(LedDriver)
     RUN_TEST_CASE(LedDriver, TurnOffAnyLed);
     RUN_TEST_CASE(LedDriver, AllOn);
     RUN_TEST_CASE(LedDriver, LedMemoryIsNotReadable);
+    RUN_TEST_CASE(LedDriver, UpperAndLowerBounds);
 }
