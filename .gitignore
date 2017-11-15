@@ -1,4 +1,4 @@
 *.swp
-LedDriver_Unity_tests
-objs/
+/LedDriver_Unity_tests
+/objs/
 *.a
