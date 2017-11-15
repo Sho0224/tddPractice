@@ -47,6 +47,10 @@ void LedDriver_TurnAllOn()
 
 bool LedDriver_IsOn(int ledNumber)
 {
+    if (IsLedOutOfBounds(ledNumber))
+    {
+        return false;
+    }
     return 0 != (ledsImage & convertLedNumberToBit(ledNumber));
 }
 

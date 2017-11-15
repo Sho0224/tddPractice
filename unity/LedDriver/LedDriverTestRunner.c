@@ -14,5 +14,6 @@ TEST_GROUP_RUNNER(LedDriver)
     RUN_TEST_CASE(LedDriver, OutOfBoundsTurnOffDoesNoHarm);
     RUN_TEST_CASE(LedDriver, OutOfBoundsProducesRuntimeError);
     RUN_TEST_CASE(LedDriver, IsOn);
+    RUN_TEST_CASE(LedDriver, OutOfBoundsLedsAreAlwaysOff);
     RUN_TEST_CASE(LedDriver, OutOfBoundsToDo);
 }
