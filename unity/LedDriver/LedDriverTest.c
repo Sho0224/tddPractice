@@ -99,9 +99,9 @@ TEST(LedDriver, OutOfBoundsProducesRuntimeError)
 
 TEST(LedDriver, IsOn)
 {
-    TEST_ASSERT_EQUAL(false, LedDriver_IsOn(11));
+    TEST_ASSERT_FALSE(LedDriver_IsOn(11));
     LedDriver_TurnOn(11);
-    TEST_ASSERT_EQUAL(true, LedDriver_IsOn(11));
+    TEST_ASSERT_TRUE(LedDriver_IsOn(11));
 }
 
 TEST(LedDriver, OutOfBoundsLedsAreAlwaysOff)
