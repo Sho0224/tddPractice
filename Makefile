@@ -4,7 +4,7 @@
 SILENCE = @
 
 #---- Outputs ----#
-COMPONENT_NAME = LedDriver_Unity
+COMPONENT_NAME = TddPractice_Unity
 
 #--- Inputs ----#
 UNITY_HOME = unity.framework
