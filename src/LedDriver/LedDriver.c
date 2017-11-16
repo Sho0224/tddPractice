@@ -23,10 +23,7 @@ void LedDriver_Create(uint16_t * address)
 void LedDriver_TurnOn(int ledNumber)
 {
     if (IsLedOutOfBounds(ledNumber))
-    {
-        RUNTIME_ERROR("LED Driver: out-of-bounds LED", -1);
         return;
-    }
     setLedImageBit(ledNumber);
     updateHardware();
 }
@@ -77,7 +74,15 @@ static void updateHardware(void)
 
 static bool IsLedOutOfBounds(int ledNumber)
 {
-    return (ledNumber < FIRST_LED || ledNumber > LAST_LED);
+    if (ledNumber < FIRST_LED || ledNumber > LAST_LED)
+    {
+        RUNTIME_ERROR("LED Driver: out-of-bounds LED", -1);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 static void setLedImageBit(int ledNumber)
