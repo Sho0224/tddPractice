@@ -5,10 +5,12 @@ TEST_GROUP(CircularBuffer);
 
 TEST_SETUP(CircularBuffer)
 {
+    CircularBuffer_Create(256);
 }
 
 TEST_TEAR_DOWN(CircularBuffer)
 {
+    CircularBuffer_Destroy();
 }
 
 TEST(CircularBuffer, OneInputOneOutput)
