@@ -33,7 +33,7 @@ TEST(CircularBuffer, TwoInputTwoOutput)
 TEST(CircularBuffer, OutOfBoundsBufferSizeOver)
 {
     int i = 0;
-    for(i = 0; i < bufferSize; i++)
+    for(i = 0; i < bufferSize + 1; i++)
     {
        CircularBuffer_push(i);
     } 
@@ -42,4 +42,13 @@ TEST(CircularBuffer, OutOfBoundsBufferSizeOver)
     TEST_ASSERT_EQUAL(-1, RuntimeErrorStub_GetLastParameter());
 }
 
-// TODO ポップしないでプッシュする
+TEST(CircularBuffer, OutOfBoundsNoPushPop)
+{
+    CircularBuffer_pop();
+    TEST_ASSERT_EQUAL_STRING("CircularBuffer Driver:No data area access",
+        RuntimeErrorStub_GetLastError());
+    TEST_ASSERT_EQUAL(-1, RuntimeErrorStub_GetLastParameter());
+}
+
+// TODO 最大までpushしてから最大+1までpop(popでの範囲外アクセス)
+// TODO 押出機能実装(popしたら領域を戻す)

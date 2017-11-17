@@ -26,6 +26,11 @@ void CircularBuffer_push(int input)
 
 int CircularBuffer_pop()
 {
+    if(pushIndex <= popIndex)
+    {
+        RUNTIME_ERROR("CircularBuffer Driver:No data area access", -1);
+        return 0;
+    }
     int tmp = intBuffer[popIndex];
     popIndex++;
     return tmp;
@@ -34,4 +39,6 @@ int CircularBuffer_pop()
 void CircularBuffer_Destroy()
 {
     free(intBuffer);
+    popIndex = 0;
+    pushIndex = 0;
 }
