@@ -17,8 +17,7 @@ void CircularBuffer_push(int input)
 {
     if(bufferSize <= pushIndex)
     {
-        RUNTIME_ERROR("CircularBuffer Driver:Buffer size over Push", -1);
-        return;
+        pushIndex = 0;
     }
     intBuffer[pushIndex] = input;
     pushIndex++;
@@ -33,6 +32,10 @@ int CircularBuffer_pop()
     }
     int tmp = intBuffer[popIndex];
     popIndex++;
+    if(popIndex >= bufferSize)
+    {
+        popIndex = 0;
+    }
     return tmp;
 }
 

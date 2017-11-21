@@ -30,18 +30,6 @@ TEST(CircularBuffer, TwoInputTwoOutput)
     TEST_ASSERT_EQUAL(2,CircularBuffer_pop());
 }
 
-TEST(CircularBuffer, OutOfBoundsBufferSizeOver)
-{
-    int i = 0;
-    for(i = 0; i < bufferSize + 1; i++)
-    {
-       CircularBuffer_push(i);
-    } 
-    TEST_ASSERT_EQUAL_STRING("CircularBuffer Driver:Buffer size over Push",
-        RuntimeErrorStub_GetLastError());
-    TEST_ASSERT_EQUAL(-1, RuntimeErrorStub_GetLastParameter());
-}
-
 TEST(CircularBuffer, OutOfBoundsNoPushPop)
 {
     CircularBuffer_pop();
@@ -50,5 +38,13 @@ TEST(CircularBuffer, OutOfBoundsNoPushPop)
     TEST_ASSERT_EQUAL(-1, RuntimeErrorStub_GetLastParameter());
 }
 
-// TODO 最大までpushしてから最大+1までpop(popでの範囲外アクセス)
-// TODO 押出機能実装(popしたら領域を戻す)
+TEST(CircularBuffer, Circular)
+{
+    int i = 0;
+    for(i = 0; i < bufferSize + 1; i++)
+    {
+       CircularBuffer_push(i);
+       TEST_ASSERT_EQUAL(i,CircularBuffer_pop());
+    } 
+}
+
