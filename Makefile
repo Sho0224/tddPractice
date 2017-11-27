@@ -17,7 +17,6 @@ TEST_SRC_DIRS = \
 	.\
 	cppuTest/HomeAutomation\
 	cppuTest\
-
 	
 INCLUDE_DIRS =\
   .\
