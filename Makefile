@@ -22,6 +22,7 @@ INCLUDE_DIRS =\
   .\
   $(CPPUTEST_HOME)/include\
   include/HomeAutomation\
+  cpputest\HomeAutomation\
 
 MOCKS_SRC_DIRS = \
 	mocks\

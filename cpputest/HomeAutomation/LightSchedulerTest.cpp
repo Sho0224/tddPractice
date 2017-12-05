@@ -10,8 +10,8 @@
 //     LONGS_EQUAL(LIGHT_STATE_UNKKNOWN, LightControllerSpy_LastState());
 // }
 
-TEST(LightSceduler, NoChangeToLightsDuringInitialization)
-{
-    LONGS_EQUAL(LIGHT_ID_UNKKNOWN, LightControllerSpy_GetLastId());
-    LONGS_EQUAL(LIGHT_STATE_UNKKNOWN, LightControllerSpy_LastState());
-}
+// TEST(LightSceduler, NoChangeToLightsDuringInitialization)
+// {
+//     LONGS_EQUAL(LIGHT_ID_UNKKNOWN, LightControllerSpy_GetLastId());
+//     LONGS_EQUAL(LIGHT_STATE_UNKKNOWN, LightControllerSpy_LastState());
+// }
