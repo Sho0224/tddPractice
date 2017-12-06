@@ -15,14 +15,14 @@ SRC_DIRS = \
 
 TEST_SRC_DIRS = \
 	.\
-	cppuTest/HomeAutomation\
-	cppuTest\
+	cpputest/HomeAutomation\
+	cpputest\
 	
 INCLUDE_DIRS =\
-  .\
-  $(CPPUTEST_HOME)/include\
-  include/HomeAutomation\
-  cpputest\HomeAutomation\
+	.\
+	$(CPPUTEST_HOME)/include\
+	include/HomeAutomation\
+	include/util\
 
 MOCKS_SRC_DIRS = \
 	mocks\
