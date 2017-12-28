@@ -11,10 +11,11 @@ typedef struct
 {
     int id;
     int minuteOfDay;
-    LIGHT_CONTROLLER_EVENT event;
+    int event;
 } ScheduledLightEvent;
 
 static ScheduledLightEvent scheduledEvent;
+static void scheduleEvent(int id, Day day, int minuteOfDay, int event);
 
 void LightScheduler_Create(void)
 {
@@ -44,16 +45,19 @@ void LightScheduler_Wakeup(void)
     }
 }
 
-void LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay)
+static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
 {
     scheduledEvent.id = id;
     scheduledEvent.minuteOfDay = minuteOfDay;
-    scheduledEvent.event = LIGHT_ON;
+    scheduledEvent.event = event;
+}
+
+void LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay)
+{
+    scheduleEvent(id, day, minuteOfDay, LIGHT_ON);
 }
 
 void LightScheduler_ScheduleTurnOff(int id, Day day, int minuteOfDay)
 {
-    scheduledEvent.id = id;
-    scheduledEvent.minuteOfDay = minuteOfDay;
-    scheduledEvent.event = LIGHT_OFF;
+    scheduleEvent(id, day, minuteOfDay, LIGHT_OFF);
 }
