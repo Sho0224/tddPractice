@@ -8,6 +8,7 @@ extern "C"
 }
 
 static void setTimeTo(int day, int minuteOfDay);
+static void checkLightState(int id, int level);
 
 TEST_GROUP(LightScheduler)
 {
@@ -26,11 +27,11 @@ TEST_GROUP(LightScheduler)
 
 TEST(LightScheduler, NoScheduleNothingHappens)
 {
-    FakeTimeService_SetDay(MONDAY);
-    FakeTimeService_SetMinute(100);
+    setTimeTo(MONDAY, 100);
+
     LightScheduler_Wakeup();
-    LONGS_EQUAL(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-    LONGS_EQUAL(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
+
+    checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
 }
 
 TEST(LightScheduler,ScheduleOnEverydayNotTimeYet)
@@ -40,8 +41,7 @@ TEST(LightScheduler,ScheduleOnEverydayNotTimeYet)
 
     LightScheduler_Wakeup();
 
-    LONGS_EQUAL(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-    LONGS_EQUAL(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
+    checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
 }
 
 TEST(LightScheduler, ScheduleOnEverydayItsTime)
@@ -51,8 +51,7 @@ TEST(LightScheduler, ScheduleOnEverydayItsTime)
 
     LightScheduler_Wakeup();
 
-    LONGS_EQUAL(3, LightControllerSpy_GetLastId());
-    LONGS_EQUAL(LIGHT_ON, LightControllerSpy_GetLastState());
+    checkLightState(3, LIGHT_ON);
 }
 
 TEST(LightScheduler, ScheduleOffEverydayItsTime)
@@ -62,14 +61,19 @@ TEST(LightScheduler, ScheduleOffEverydayItsTime)
 
     LightScheduler_Wakeup();
 
-    LONGS_EQUAL(3, LightControllerSpy_GetLastId());
-    LONGS_EQUAL(LIGHT_OFF, LightControllerSpy_GetLastState());
+    checkLightState(3, LIGHT_OFF);
 }
 
 static void setTimeTo(int day, int minuteOfDay)
 {
     FakeTimeService_SetDay(day);
     FakeTimeService_SetMinute(minuteOfDay);
+}
+
+static void checkLightState(int id, int level)
+{
+    LONGS_EQUAL(id, LightControllerSpy_GetLastId());
+    LONGS_EQUAL(level, LightControllerSpy_GetLastState());
 }
 
 // TEST(LightScheduler, NoChangeToLightsDuringInitialization)
