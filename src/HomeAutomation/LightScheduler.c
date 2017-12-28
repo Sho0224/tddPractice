@@ -16,6 +16,8 @@ typedef struct
 
 static ScheduledLightEvent scheduledEvent;
 static void scheduleEvent(int id, Day day, int minuteOfDay, int event);
+static void processEventDueNow(Time* time, ScheduledLightEvent* LightEvent);
+static void operateLight(ScheduledLightEvent* LightEvent);
 
 void LightScheduler_Create(void)
 {
@@ -31,18 +33,8 @@ void LightScheduler_Wakeup(void)
 {
     Time time;
     TimeService_GetTime(&time);
-    if(scheduledEvent.id == UNUSED)
-        return;
-    if(time.minuteOfDay != scheduledEvent.minuteOfDay)
-        return;
 
-    if(scheduledEvent.event == LIGHT_ON)
-    {
-        LightController_On(scheduledEvent.id);
-    }else if(scheduledEvent.event == LIGHT_OFF)
-    {
-        LightController_Off(scheduledEvent.id);
-    }
+    processEventDueNow(&time, &scheduledEvent);
 }
 
 static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
@@ -50,6 +42,26 @@ static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
     scheduledEvent.id = id;
     scheduledEvent.minuteOfDay = minuteOfDay;
     scheduledEvent.event = event;
+}
+
+static void processEventDueNow(Time* time, ScheduledLightEvent* lightEvent)
+{
+    if(lightEvent->id == UNUSED)
+        return;
+    if(time->minuteOfDay != lightEvent->minuteOfDay)
+        return;
+    operateLight(lightEvent);
+}
+
+static void operateLight(ScheduledLightEvent* lightEvent)
+{
+    if(lightEvent->event == LIGHT_ON)
+    {
+        LightController_On(lightEvent->id);
+    }else if(lightEvent->event == LIGHT_OFF)
+    {
+        LightController_Off(lightEvent->id);
+    }
 }
 
 void LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay)
