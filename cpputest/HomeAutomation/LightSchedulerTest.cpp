@@ -7,6 +7,8 @@ extern "C"
 #include "FakeTimeService.h"
 }
 
+static void setTimeTo(int day, int minuteOfDay);
+
 TEST_GROUP(LightScheduler)
 {
     void setup()
@@ -34,9 +36,8 @@ TEST(LightScheduler, NoScheduleNothingHappens)
 TEST(LightScheduler,ScheduleOnEverydayNotTimeYet)
 {
     LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
-    FakeTimeService_SetDay(MONDAY);
-    FakeTimeService_SetMinute(1199);
-    
+    setTimeTo(MONDAY, 1999);
+
     LightScheduler_Wakeup();
 
     LONGS_EQUAL(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
@@ -46,8 +47,7 @@ TEST(LightScheduler,ScheduleOnEverydayNotTimeYet)
 TEST(LightScheduler, ScheduleOnEverydayItsTime)
 {
     LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
-    FakeTimeService_SetDay(MONDAY);
-    FakeTimeService_SetMinute(1200);
+    setTimeTo(MONDAY, 1200);
 
     LightScheduler_Wakeup();
 
@@ -58,13 +58,18 @@ TEST(LightScheduler, ScheduleOnEverydayItsTime)
 TEST(LightScheduler, ScheduleOffEverydayItsTime)
 {
     LightScheduler_ScheduleTurnOff(3, EVERYDAY, 1200);
-    FakeTimeService_SetDay(MONDAY);
-    FakeTimeService_SetMinute(1200);
+    setTimeTo(MONDAY, 1200);
 
     LightScheduler_Wakeup();
 
     LONGS_EQUAL(3, LightControllerSpy_GetLastId());
     LONGS_EQUAL(LIGHT_OFF, LightControllerSpy_GetLastState());
+}
+
+static void setTimeTo(int day, int minuteOfDay)
+{
+    FakeTimeService_SetDay(day);
+    FakeTimeService_SetMinute(minuteOfDay);
 }
 
 // TEST(LightScheduler, NoChangeToLightsDuringInitialization)
