@@ -50,7 +50,7 @@ static void processEventDueNow(Time* time, ScheduledLightEvent* lightEvent)
 {
     if(lightEvent->id == UNUSED)
         return;
-    if(lightEvent->day != EVERYDAY)
+    if(lightEvent->day != EVERYDAY && lightEvent->day != time->dayOfWeek)
         return;
     if(time->minuteOfDay != lightEvent->minuteOfDay)
         return;
