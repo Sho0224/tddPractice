@@ -1,6 +1,7 @@
 #include "LightScheduler.h"
 #include "LightController.h"
 #include "TimeService.h"
+#include <stdbool.h>
 
 enum 
 {
@@ -19,6 +20,7 @@ static ScheduledLightEvent scheduledEvent;
 static void scheduleEvent(int id, Day day, int minuteOfDay, int event);
 static void processEventDueNow(Time* time, ScheduledLightEvent* LightEvent);
 static void operateLight(ScheduledLightEvent* LightEvent);
+static int DoesLightRespondToday(Time *time, int reactionDay);
 
 void LightScheduler_Create(void)
 {
@@ -50,15 +52,26 @@ static void processEventDueNow(Time* time, ScheduledLightEvent* lightEvent)
 {
     if(lightEvent->id == UNUSED)
         return;
-    if(lightEvent->day != EVERYDAY && lightEvent->day != WEEKEND && lightEvent->day != WEEKDAY && lightEvent->day != time->dayOfWeek)
-        return;
-    if(lightEvent->day == WEEKEND && !(time->dayOfWeek == SATURDAY || time->dayOfWeek == SUNDAY))
-        return;
-    if(lightEvent->day == WEEKDAY && (time->dayOfWeek < MONDAY || time->dayOfWeek > FRIDAY))
+    if(!DoesLightRespondToday(time, lightEvent->day))
         return;
     if(time->minuteOfDay != lightEvent->minuteOfDay)
         return;
     operateLight(lightEvent);
+}
+
+static int DoesLightRespondToday(Time *time, int reactionDay)
+{
+    int today = time->dayOfWeek;
+
+    if(reactionDay == EVERYDAY)
+        return true;
+    if(reactionDay == today)
+        return true;
+    if(reactionDay == WEEKEND && (today == SATURDAY || today == SUNDAY))
+        return true;
+    if(reactionDay == WEEKDAY && today >= MONDAY && today <= FRIDAY)
+        return true;
+    return false;
 }
 
 static void operateLight(ScheduledLightEvent* lightEvent)
