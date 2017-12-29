@@ -64,6 +64,14 @@ TEST(LightScheduler, ScheduleOffEverydayItsTime)
     checkLightState(3, LIGHT_OFF);
 }
 
+TEST(LightScheduler, ScheduleTuesdayButItsMonday)
+{
+    LightScheduler_ScheduleTurnOn(3, TUESDAY, 1200);
+    setTimeTo(MONDAY, 1200);
+    LightScheduler_Wakeup();
+    checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
+}
+
 static void setTimeTo(int day, int minuteOfDay)
 {
     FakeTimeService_SetDay(day);
