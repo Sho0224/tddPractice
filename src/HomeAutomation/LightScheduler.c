@@ -52,7 +52,7 @@ static void processEventDueNow(Time* time, ScheduledLightEvent* lightEvent)
         return;
     if(lightEvent->day != EVERYDAY && lightEvent->day != WEEKEND && lightEvent->day != time->dayOfWeek)
         return;
-    if(lightEvent->day == WEEKEND && time->dayOfWeek != SATURDAY)
+    if(lightEvent->day == WEEKEND && !(time->dayOfWeek == SATURDAY || time->dayOfWeek == SUNDAY))
         return;
     if(time->minuteOfDay != lightEvent->minuteOfDay)
         return;
