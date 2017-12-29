@@ -96,13 +96,22 @@ TEST(LightScheduler, ScheduleWeekEndItsSaturday)
     checkLightState(3, LIGHT_ON);
 }
 
-TEST(LightScheduler, ScheduleWeekEndItsSunrday)
+TEST(LightScheduler, ScheduleWeekEndItsSunday)
 {
     LightScheduler_ScheduleTurnOn(3, WEEKEND, 1200);
     setTimeTo(SUNDAY, 1200);
     LightScheduler_Wakeup();
     checkLightState(3, LIGHT_ON);
 }
+
+TEST(LightScheduler, ScheduleWeekEndItsMonday)
+{
+    LightScheduler_ScheduleTurnOn(3, WEEKEND, 1200);
+    setTimeTo(MONDAY, 1200);
+    LightScheduler_Wakeup();
+    checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
+}
+
 static void setTimeTo(int day, int minuteOfDay)
 {
     FakeTimeService_SetDay(day);
