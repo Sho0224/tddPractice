@@ -80,6 +80,22 @@ TEST(LightScheduler, ScheduleTuesdayAndItsTuesday)
     checkLightState(3, LIGHT_ON);
 }
 
+TEST(LightScheduler, ScheduleWeekEndItsFriday)
+{
+    LightScheduler_ScheduleTurnOn(3, WEEKEND, 1200);
+    setTimeTo(FRIDAY, 1200);
+    LightScheduler_Wakeup();
+    checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
+}
+
+TEST(LightScheduler, ScheduleWeekEndItsSaturday)
+{
+    LightScheduler_ScheduleTurnOn(3, WEEKEND, 1200);
+    setTimeTo(SATURDAY, 1200);
+    LightScheduler_Wakeup();
+    checkLightState(3, LIGHT_ON);
+}
+
 static void setTimeTo(int day, int minuteOfDay)
 {
     FakeTimeService_SetDay(day);
@@ -94,6 +110,6 @@ static void checkLightState(int id, int level)
 
 // TEST(LightScheduler, NoChangeToLightsDuringInitialization)
 // {
-//     LONGS_EQUAL(LIGHT_ID_UNKKNOWN, LightControllerSpy_GetLastId());
-//     LONGS_EQUAL(LIGHT_STATE_UNKKNOWN, LightControllerSpy_LastState());
+//     LONGS_EQUAL(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
+//     LONGS_EQUAL(LIGHT_STATE_UNKNOWN, LightControllerSpy_LastState());
 // }
