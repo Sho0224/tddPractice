@@ -128,6 +128,13 @@ TEST(LightScheduler, ScheduleWeekDayItsSaturday)
     checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
 }
 
+TEST(LightScheduler, ScheduleWeekDayItsSunday)
+{
+    LightScheduler_ScheduleTurnOn(3, WEEKDAY, 1200);
+    setTimeTo(SUNDAY, 1200);
+    LightScheduler_Wakeup();
+    checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
+}
 static void setTimeTo(int day, int minuteOfDay)
 {
     FakeTimeService_SetDay(day);
