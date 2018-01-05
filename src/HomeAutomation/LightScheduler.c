@@ -19,7 +19,7 @@ typedef struct
 
 static ScheduledLightEvent scheduledEvents[MAX_EVENTS];
 
-static void scheduleEvent(int id, Day day, int minuteOfDay, int event);
+static int scheduleEvent(int id, Day day, int minuteOfDay, int event);
 static void processEventDueNow(Time* time, ScheduledLightEvent* LightEvent);
 static void operateLight(ScheduledLightEvent* LightEvent);
 static int DoesLightRespondToday(Time *time, int reactionDay);
@@ -52,7 +52,7 @@ void LightScheduler_Wakeup(void)
     }
 }
 
-static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
+static int scheduleEvent(int id, Day day, int minuteOfDay, int event)
 {
     int i;
 
@@ -64,9 +64,10 @@ static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
             scheduledEvents[i].minuteOfDay = minuteOfDay;
             scheduledEvents[i].event = event;
             scheduledEvents[i].day = day;
-            break;
+            return LS_OK;
         }
     }
+    return LS_TOO_MANY_EVENTS;
 }
 
 static void processEventDueNow(Time* time, ScheduledLightEvent* lightEvent)
@@ -106,12 +107,12 @@ static void operateLight(ScheduledLightEvent* lightEvent)
     }
 }
 
-void LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay)
+int LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay)
 {
-    scheduleEvent(id, day, minuteOfDay, LIGHT_ON);
+    return scheduleEvent(id, day, minuteOfDay, LIGHT_ON);
 }
 
-void LightScheduler_ScheduleTurnOff(int id, Day day, int minuteOfDay)
+int LightScheduler_ScheduleTurnOff(int id, Day day, int minuteOfDay)
 {
-    scheduleEvent(id, day, minuteOfDay, LIGHT_OFF);
+    return scheduleEvent(id, day, minuteOfDay, LIGHT_OFF);
 }
