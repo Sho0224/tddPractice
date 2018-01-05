@@ -17,7 +17,6 @@ typedef struct
     int day;
 } ScheduledLightEvent;
 
-static ScheduledLightEvent scheduledEvent;
 static ScheduledLightEvent scheduledEvents[MAX_EVENTS];
 
 static void scheduleEvent(int id, Day day, int minuteOfDay, int event);
@@ -28,8 +27,6 @@ static int DoesLightRespondToday(Time *time, int reactionDay);
 void LightScheduler_Create(void)
 {
     int i;
-
-    scheduledEvent.id = UNUSED;
 
     for(i = 0; i < MAX_EVENTS; i++)
     {
@@ -53,8 +50,6 @@ void LightScheduler_Wakeup(void)
     {
         processEventDueNow(&time, &scheduledEvents[i]);
     }
-
-    processEventDueNow(&time, &scheduledEvent);
 }
 
 static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
@@ -72,11 +67,6 @@ static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
             break;
         }
     }
-
-    scheduledEvent.id = id;
-    scheduledEvent.minuteOfDay = minuteOfDay;
-    scheduledEvent.event = event;
-    scheduledEvent.day = day;
 }
 
 static void processEventDueNow(Time* time, ScheduledLightEvent* lightEvent)
