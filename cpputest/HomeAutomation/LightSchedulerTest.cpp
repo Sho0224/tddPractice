@@ -150,6 +150,14 @@ TEST(LightScedulerInitAndCleanup, CreateStartsOneMinuteAlarm)
     LightScheduler_Destroy();
 }
 
+TEST(LightScedulerInitAndCleanup, DestroyCancelOneMinuteAlarm)
+{
+    LightScheduler_Create();
+    LightScheduler_Destroy();
+
+    POINTERS_EQUAL(NULL, (void *)FakeTimeService_GetAlarmCallback());
+}
+
 static void setTimeTo(int day, int minuteOfDay)
 {
     FakeTimeService_SetDay(day);
