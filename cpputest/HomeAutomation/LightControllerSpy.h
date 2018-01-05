@@ -3,6 +3,7 @@
 
 #include "LightController.h"
 
+int LightControllerSpy_GetLightState(int);
 int LightControllerSpy_GetLastId(void);
 int LightControllerSpy_GetLastState(void);
 
