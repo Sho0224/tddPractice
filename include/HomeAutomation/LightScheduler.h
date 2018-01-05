@@ -9,7 +9,7 @@ typedef enum
     SUNDAY=1, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
 } Day;
 
-enum { LS_OK, LS_TOO_MANY_EVENTS};
+enum { LS_OK, LS_TOO_MANY_EVENTS, LS_ID_OUT_OF_BOUNDS};
 
 void LightScheduler_Create(void);
 void LightScheduler_Destroy(void);
