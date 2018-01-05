@@ -25,6 +25,7 @@ static int DoesLightRespondToday(Time *time, int reactionDay);
 void LightScheduler_Create(void)
 {
     scheduledEvent.id = UNUSED;
+    TimeService_SetPeriodicAlarmInSeconds(60, LightScheduler_Wakeup);
 }
 
 void LightScheduler_Destroy(void)
