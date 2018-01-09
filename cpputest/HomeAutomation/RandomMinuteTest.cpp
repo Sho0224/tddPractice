@@ -36,3 +36,20 @@ TEST(RandomMinute, GetIsInRange)
         AssertMinuteIsInRange();
     }
 }
+
+TEST(RandomMinute, AllValuesPossible)
+{
+    int hit[2*BOUND +1];
+    memset(hit, 0, sizeof(hit));
+    int i;
+    for ( i = 0; i < 400; i++)
+    {
+        minute = RandomMinute_Get();
+        AssertMinuteIsInRange();
+        hit[minute + BOUND]++;
+    }
+    for ( i = 0; i < 2 * BOUND + 1; i++)
+    {
+        CHECK(hit[i] > 0);
+    }
+}

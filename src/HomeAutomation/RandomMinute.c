@@ -1,11 +1,14 @@
 #include "RandomMinute.h"
+#include <stdlib.h>
 
-void RandomMinute_Create(int bound)
+static int bound = 0;
+
+void RandomMinute_Create(int b)
 {
-    
+    bound = b;
 }
 
 int RandomMinute_Get()
 {
-    return 0;
+    return bound - rand() % (bound * 2 + 1);
 }
