@@ -12,12 +12,14 @@ PROJECT_HOME_DIR = .
 
 SRC_DIRS = \
 	src/HomeAutomation \
+	mocks\
 
 TEST_SRC_DIRS = \
 	.\
 	cpputest/HomeAutomation\
 	cpputest\
-	
+	mocks\
+
 INCLUDE_DIRS =\
 	.\
 	$(CPPUTEST_HOME)/include\
