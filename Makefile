@@ -12,11 +12,13 @@ PROJECT_HOME_DIR = .
 
 SRC_DIRS = \
 	src/HomeAutomation \
+	src/util\
 	mocks\
 
 TEST_SRC_DIRS = \
 	.\
 	cpputest/HomeAutomation\
+	cpputest/util\
 	cpputest\
 	mocks\
 

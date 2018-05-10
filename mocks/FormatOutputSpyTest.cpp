@@ -2,8 +2,8 @@
 
 extern "C"
 {
-#include "FormatOutputSpy.h"
 #include "Utils.h"
+#include "FormatOutputSpy.h"
 }
 
 TEST_GROUP(FormatOutputSpy)
