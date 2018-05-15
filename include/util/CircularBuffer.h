@@ -6,4 +6,5 @@ CircularBuffer CircularBuffer_Create(int capacity);
 void CircularBuffer_Destroy(CircularBuffer buffer);
 void CircularBuffer_Print(CircularBuffer buffer);
 void CircularBuffer_Put(CircularBuffer buffer,int value); 
+int CircularBuffer_Get(CircularBuffer buffer); 
 #endif  /* D_CircularBuffer_H */
